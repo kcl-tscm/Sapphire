@@ -1,11 +1,6 @@
-.gitattributes
-.gitignore
-HEAD
 LICENSE
 README
 README.md
-config
-description
 setup.py
 main/HEAD
 main/README
@@ -326,6 +321,12 @@ main/Sapphire/Potentials/Potentials.py
 main/Sapphire/Potentials/Pt.set
 main/Sapphire/Potentials/PtAu.eam.alloy
 main/Sapphire/Potentials/__init__.py
+main/Sapphire/Raffy/__init__.py
+main/Sapphire/Raffy/compute_descriptors.py
+main/Sapphire/Raffy/linear_potential.py
+main/Sapphire/Raffy/trajectory_cluster.py
+main/Sapphire/Raffy/utils.py
+main/Sapphire/Raffy/wigner3j.py
 main/Sapphire/Sapphire-logos/Sapphire-logos.jpeg
 main/Sapphire/Sapphire-logos/Sapphire-logos_black.png
 main/Sapphire/Sapphire-logos/Sapphire-logos_transparent.png
