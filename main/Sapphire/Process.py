@@ -42,17 +42,30 @@ class Process(object):
     Each of the sub-modules may be indivudually interrogated.
    
     An example of a given input scheme may be found in the IO/input.py file
-   
+
+    #System is a dictionary which defines the IO path for the calculation to follow.
+    #One does not neessarily need to define this variable for on the spot calculations.
+    #However, it becomes easier to manage data if the standard data pipeline is used.
+    
     System = {
-        'base_dir': '/path/to/directory/',
-        'movie_file_name': 'path/from/directory/to/movie_file_name.xyz',
-        'extend_xyz': ['', '', ''],
+        'base_dir': '/path/to/directory/', #The directory from which all of the IO streams are coordinated
+        'movie_file_name': 'path/from/directory/to/movie_file_name.xyz', #Relative path to the input file name. 
+                                                                         #Can be any standard extension
+        'extend_xyz': ['', '', ''], #If set, the list will contain the names of 
+                                    #the quantities to be written to an extended xyz file
 
-        'Homo': ['Element1', 'Element2'],
+        'Homo': ['Element1', 'Element2'], #Both element must be defined as their
+                                          #chemical name. Repeat if bimetallic
 
-        'Hetero': True,
+        'Hetero': True, #A simple boolean flag to determine if hetero-atomic
+                        #properties are to be considered.
 
-        'Start': 0, 'End': None, 'Step': 1, 'Skip': 50, 'UniformPDF': False, 'Band': 0.05
+        'Start': 0, #Defines initial frame of the trajectory
+        'End': None, #Defines the final frame numerically
+        'Step': 1, #Size of frame increment increase when evaluating a trajectory
+        'Skip': 50, #Frequency in which the pdf and r_cut are reported.
+        'UniformPDF': False, #Legacy and will soon be gone.
+        'Band': 0.05 #Legacy and will soon be gone.
     }
 
     # Define the quantities you want calculating given the names
@@ -88,7 +101,11 @@ class Process(object):
             'he_pair_distance': None
         }
     }
-
+        
+    #This next dictionary is also legacy and has attempted to have been incorporated
+    #into the cleaning modules which parse the input.
+    #Expect CNA to undergo much development in the near future.
+    
     CNA_Pattern_Settings = {
         'npz_dir': 'CNA_npz/',  # folder to save the npz files in
         'new_xyz_dir': 'CNA_XYZs/',
@@ -99,8 +116,16 @@ class Process(object):
         'PRINTING_PATTERNS': True
     }
 
+    #We now proceed to perform the calculation by calling the Process object
     Data = Process.Process(System=System, Quantities=Quantities,
-                           Pattern_Input=CNA_Pattern_Settings)
+                           Pattern_Input=CNA_Pattern_Settings)0
+    
+    #Perform analyses as a form of post post-processing on the incumbent data.
+    Meta = Data.analyse(Analysis)
+    
+    #Gives the option to compress and save the metadata in a binary file.
+    with open(System['base_dir']+"Metadata.csv", "wb") as file:
+        pickle.dump(Data.metadata, file, protocol=pickle.HIGHEST_PROTOCOL)
 
     """
     
