@@ -32,7 +32,6 @@ setup(
         'ruptures',
         'tensorflow',
         'pygdm2',
-        'mir-flare',
         'networkx',
         'scikit-learn'
     ],
